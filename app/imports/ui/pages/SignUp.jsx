@@ -12,12 +12,26 @@ import { Students } from '../../api/student/Student';
 /**
  * SignUp component is similar to signin component, but we create a new user instead.
  */
+/**
+ * Current privacy and reliability controls
+ *
+ * 1. Selected Options: Scehma enforces limited options for some fields, limiting the
+ * amount of fields that can be injected with malicious inputs
+ *
+ */
+/**
+ * Missing privacy and reliability controls
+ * 1. Input Validation: Not all inputs are limited in selection. Those that have free input
+ * should be sanitized/validated to ensure that they aren't malicious inputs like XSS
+ *
+ **/
 const SignUp = ({ location }) => {
   const [error, setError] = useState('');
   const [redirectToReferer, setRedirectToRef] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const schema = new SimpleSchema({
+    // santinize/validate name, email, password, image, and description
     name: String,
     email: String,
     password: String,
@@ -46,13 +60,29 @@ const SignUp = ({ location }) => {
   const bridge = new SimpleSchema2Bridge(schema);
 
   /* Handle SignUp submission. Create user account and a profile entry, then redirect to the home page. */
+  /**
+   * Current privacy and reliability controls
+   *
+   * 1. Limited Domain: users must be uh students/sign up with uh email restricting external
+   * users from using the application
+   *
+   */
+  /**
+   * Missing privacy and reliability controls
+   * 1. Obfuscate error message: Purposefully make the error message of when there is an error
+   * with the login credentials vague so that attackers can't gain further information on user
+   * accounts
+   *
+   **/
   const submit = (doc) => {
     const { name, email, image, level, grasshopper, sensei, password, description } = doc;
+    // restricts possible sign up emails to only uh students
     if (!email.includes('@hawaii.edu')) {
       setError('sign up with your @hawaii.edu email account');
       return;
     }
     setIsSubmitting(true);
+    // err message should be vague to not release too much info about users
     Accounts.createUser({ email, username: email, password }, (err) => {
       if (err) {
         setError(err.reason);

@@ -10,6 +10,15 @@ import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstra
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
  * Authentication errors modify the component’s state to be displayed
  */
+
+/**
+ * Missing privacy and reliability controls
+ * 1. Obfuscate error message: Purposefully make the error message of when there is an error
+ * with the login credentials vague so that attackers can't gain further information on user
+ * accounts
+ *
+ **/
+
 const SignIn = () => {
   const [error, setError] = useState('');
   const [redirect, setRedirect] = useState(false);
@@ -40,6 +49,19 @@ const SignIn = () => {
     return (<Navigate to="/home-page" />);
   }
   // Otherwise return the Login form.
+  /**
+   * Current privacy and reliability controls
+   *
+   * 1. Password Obfuscation: React field 'password' obfuscates password with asterisks aiding
+   * in credential privacy
+   *
+   */
+  /**
+   * Missing privacy and reliability controls
+   * 1. Input Validation: I would filter the username and password input through an input
+   * validation function to ensure that there isn't any malicious scripts or commands
+   *
+   **/
   return (
     <Container id="signin-page" className="py-3">
       <Row className="justify-content-center">
