@@ -31,10 +31,12 @@ const SignUp = ({ location }) => {
   const [redirectToReferer, setRedirectToRef] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Schema restricts options for some fields like level, grasshopper, and sensei
   const schema = new SimpleSchema({
     // santinize/validate name, email, password, image, and description
     name: String,
     email: String,
+    // Password should have a required complexity and length
     password: String,
     image: String,
     level: {
@@ -66,13 +68,16 @@ const SignUp = ({ location }) => {
    *
    * 1. Limited Domain: users must be uh students/sign up with uh email restricting external
    * users from using the application
-   *
+   * 2. Disabled Submit: Once the form is submitted, the submit button is disabled preventing
+   * any further copies from being submitted into the database.
    */
   /**
    * Missing privacy and reliability controls
    * 1. Obfuscate error message: Purposefully make the error message of when there is an error
    * with the login credentials vague so that attackers can't gain further information on user
    * accounts
+   * 2. Rollback Insert: There are currently two sequential inserts. If one insert fails,
+   * there could be data inconsistencies. If insert fails, rollback insert
    *
    **/
   const submit = (doc) => {
@@ -84,6 +89,7 @@ const SignUp = ({ location }) => {
     }
     setIsSubmitting(true);
     // err message should be vague to not release too much info about users
+    // If one insert fails, then there should be a rollback to avoid data inconsistencies
     Accounts.createUser({ email, username: email, password }, (err) => {
       if (err) {
         setError(err.reason);
@@ -92,6 +98,8 @@ const SignUp = ({ location }) => {
         setRedirectToRef(true);
       }
     });
+    // err message should be vague to not release too much info about users
+    // If one insert fails, then there should be a rollback to avoid data inconsistencies
     Students.collection.insert(
       { name, owner: email, image, level, grasshopper, sensei, description },
       (err) => {
@@ -143,7 +151,7 @@ const SignUp = ({ location }) => {
                 />
                 <LongTextField name="description" placeholder="Enter a description about you" />
                 <ErrorsField />
-                <SubmitField disabled={isSubmitting} /> {/* Disable submit button when submitting */}
+                <SubmitField disabled={isSubmitting} /> {/* Disable submit button when submitting. That way multiple copies aren't inserted into the database */}
               </Card.Body>
             </Card>
           </AutoForm>
