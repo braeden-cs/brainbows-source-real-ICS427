@@ -7,6 +7,13 @@ import { Students } from '../../api/student/Student';
 import StudentsAdmin from '../components/StudentsAdmin';
 
 /* Renders a table containing all of the Admin documents. Use <AdminItem> to render each row. */
+
+/**
+ * Current privacy and reliability controls
+ *
+ * 1. The data is only rendered on the page when the data is ready
+ *
+ */
 const ListStudentsAdmin = () => {
   // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
   const { ready, students } = useTracker(() => {
@@ -23,6 +30,7 @@ const ListStudentsAdmin = () => {
       ready: rdy,
     };
   }, []);
+  // Determines if the data is ready. If it is ready, then the data is rendered on the page
   return (ready ? (
     <Container className="py-3">
       <Row className="justify-content-center">
