@@ -23,7 +23,8 @@ import { Students } from '../../api/student/Student';
  * Missing privacy and reliability controls
  * 1. Input Validation: Not all inputs are limited in selection. Those that have free input
  * should be sanitized/validated to ensure that they aren't malicious inputs like XSS
- *
+ * 2. Password Complexity/Length: There should be rule enforced on how complex and long an
+ * acceptable password should be when signing up
  **/
 const SignUp = ({ location }) => {
   const [error, setError] = useState('');
