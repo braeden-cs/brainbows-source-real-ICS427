@@ -17,7 +17,9 @@ import { addGoalsPage } from './addgoals.page';
 /* global fixture:false, test:false */
 
 /** Credentials for one of the sample users defined in settings.development.json. */
-const credentials = { username: 'john@foo.com', password: 'changeme' };
+const credentials = { username: 'john@foo.com', password: 'changeme', name: 'John Doe' };
+const senseiCredentials = { username: 'steve@foo.com', password: 'changeme', name: 'steve blemming' };
+const recruitInfo = { course: 'ICS 111', topic: 'testing', startTime: '7 am', endTime: '8 am' };
 
 fixture('meteor-application-template-react localhost test with default db')
   .page('http://localhost:3000');
@@ -110,4 +112,21 @@ test('Test that the add goals page shows up', async (testController) => {
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoUserHomePage(testController);
   await addGoalsPage.isDisplayed(testController);
+});
+
+test('Test that the Recruit function works', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoMatchPage(testController);
+  await matchPage.isDisplayed(testController);
+  await matchPage.gotoSpecificRecruit(testController, senseiCredentials.name);
+  await recruitPage.isDisplayed(testController);
+  await recruitPage.fillRecruitForm(testController, recruitInfo.course, recruitInfo.topic, recruitInfo.startTime, recruitInfo.endTime);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, senseiCredentials.username, senseiCredentials.password);
+  await navBar.gotoNotificationPage(testController);
+  await notifPage.isDisplayed(testController);
+  await notifPage.hasStudyNotification(testController, credentials.username, recruitInfo.course, recruitInfo.topic, recruitInfo.startTime, recruitInfo.endTime);
 });

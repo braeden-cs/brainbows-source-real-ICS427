@@ -18,6 +18,13 @@ class MatchPage {
   async gotoRecruitPage(testController) {
     await testController.click('#recruit');
   }
+
+  async gotoSpecificRecruit(testController, name) {
+    const userCard = Selector('#user-card').withText(name);
+    const recruitButton = userCard.find('#recruit');
+    await testController
+      .click(recruitButton);
+  }
 }
 
 export const matchPage = new MatchPage();

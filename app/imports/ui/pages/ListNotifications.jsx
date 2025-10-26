@@ -64,7 +64,7 @@ MakeCard.propTypes = {
 
 const StudyCard = ({ studyNotif }) => (
   <Col className="p-3">
-    <Card className="h-100">
+    <Card id="study-notif" className="h-100">
       <Card.Header>
         <Card.Title>Study Sesh</Card.Title>
         <Card.Subtitle>A student needs your help</Card.Subtitle>

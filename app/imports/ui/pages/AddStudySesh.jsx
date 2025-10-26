@@ -86,11 +86,11 @@ const AddStudySesh = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <SelectField name="course" />
-                <LongTextField name="topic" />
-                <SelectField name="startTime" />
-                <SelectField name="endTime" />
-                <SubmitField value="Submit" />
+                <SelectField id="course" name="course" />
+                <LongTextField id="topic" name="topic" />
+                <SelectField id="start-time" name="startTime" />
+                <SelectField id="end-time" name="endTime" />
+                <SubmitField id="submit-recruit" value="Submit" />
                 <ErrorsField />
               </Card.Body>
             </Card>
