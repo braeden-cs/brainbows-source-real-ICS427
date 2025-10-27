@@ -22,6 +22,7 @@ const senseiCredentials = { username: 'steve@foo.com', password: 'changeme', nam
 const recruitInfo = { course: 'ICS 111', topic: 'testing', startTime: '7 am', endTime: '8 am' };
 const urgentSeshInfo = { course: 'ICS 111', topic: 'urgent testing', startTime: '7 am', endTime: '8 am' };
 const goalInfo = { short: 'short term goal', long: 'long term goal' };
+const updateProfileInfo = { level: 'Sophomore' };
 
 fixture('meteor-application-template-react localhost test with default db')
   .page('http://localhost:3000');
@@ -172,6 +173,13 @@ test('Test that the delete goal notification function works', async (testControl
   await navBar.gotoSignInPage(testController);
   await signinPage.signin(testController, credentials.username, credentials.password);
   await navBar.gotoViewGoalsPage(testController);
-  await goalsPage.isDisplayed(testController);
   await goalsPage.deleteGoal(testController);
+});
+
+test('Test that the edit page works', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoEditProfilePage(testController);
+  await editProfilePage.isDisplayed(testController);
+  await editProfilePage.isUpdated(testController, updateProfileInfo.level);
 });

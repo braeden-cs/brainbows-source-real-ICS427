@@ -62,7 +62,7 @@ const EditProfile = () => {
                   <Col><TextField name="owner" showInlineError placeholder="Your name" disabled /></Col>
                 </Row>
                 <Row id="level">
-                  <Col><SelectField name="level" showInlineError /></Col>
+                  <Col><SelectField id="user-level" name="level" showInlineError /></Col>
                 </Row>
                 <SelectField
                   name="grasshopper"
@@ -80,7 +80,7 @@ const EditProfile = () => {
                   checkboxes
                   inline
                 />
-                <SubmitField value="Submit" />
+                <SubmitField id="submit-update" value="Submit" />
                 <ErrorsField />
               </Card>
             </CardGroup>
