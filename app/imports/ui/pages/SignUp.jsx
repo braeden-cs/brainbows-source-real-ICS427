@@ -152,7 +152,7 @@ const SignUp = ({ location }) => {
                   inline
                 />
                 <LongTextField id="user-description" name="description" placeholder="Enter a description about you" />
-                <ErrorsField />
+                <ErrorsField id="signup-error" />
                 <SubmitField id="new-user-submit" disabled={isSubmitting} /> {/* Disable submit button when submitting. That way multiple copies aren't inserted into the database */}
               </Card.Body>
             </Card>
@@ -165,7 +165,7 @@ const SignUp = ({ location }) => {
           {error === '' ? (
             ''
           ) : (
-            <Alert variant="danger">
+            <Alert id="signup-alert" variant="danger">
               <Alert.Heading>Registration was not successful</Alert.Heading>
               {error}
             </Alert>

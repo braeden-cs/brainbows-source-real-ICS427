@@ -26,6 +26,29 @@ class SignupPage {
     await testController.typeText('#user-description', description);
     await testController.click('#new-user-submit input.btn.btn-primary');
   }
+
+  async signupUserNoName(testController, username, password, image, level, grasshopperCourses, senseiCourses, description) {
+    await testController.typeText('#user-email', username);
+    await testController.typeText('#user-password', password);
+    await testController.typeText('#user-image', image);
+    await testController
+      .click(this.levelSelector)
+      .click(this.levelSelector.find('option').withText(level));
+    await testController.typeText('#user-description', description);
+    await testController.click('#new-user-submit input.btn.btn-primary');
+  }
+
+  async isAlertDisplayed(testController) {
+    const signupAlert = Selector('#signup-alert').withText('Registration was not successful');
+
+    await testController.expect(signupAlert).ok();
+  }
+
+  async isErrorDisplayed(testController) {
+    const signupError = Selector('#signup-error');
+
+    await testController.expect(signupError).ok();
+  }
 }
 
 export const signupPage = new SignupPage();

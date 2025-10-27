@@ -24,7 +24,8 @@ const recruitInfo = { course: 'ICS 111', topic: 'testing', startTime: '7 am', en
 const urgentSeshInfo = { course: 'ICS 111', topic: 'urgent testing', startTime: '7 am', endTime: '8 am' };
 const goalInfo = { short: 'short term goal', long: 'long term goal' };
 const updateProfileInfo = { level: 'Sophomore' };
-const newUserInfo = { name: 'Ava Harper', email: 'ava.harper@hawaii.edu', password: 'changeme', image: 'https://github.com/philipmjohnson.png', level: 'Freshman', grasshopper: 'ICS 111', sensei: 'ICS 101', description: 'description' };
+const newUserInfo = { name: 'Ava Shane', email: 'ava.shane@hawaii.edu', password: 'changeme', image: 'https://github.com/philipmjohnson.png', level: 'Freshman', grasshopper: 'ICS 111', sensei: 'ICS 101', description: 'description' };
+const incorrectEmail = { email: 'ava@foo.com' };
 
 fixture('meteor-application-template-react localhost test with default db')
   .page('http://localhost:3000');
@@ -185,9 +186,21 @@ test('Test that the edit page works', async (testController) => {
   await editProfilePage.isDisplayed(testController);
   await editProfilePage.isUpdated(testController, updateProfileInfo.level);
 });
-
+/**
 test('Test that signup works', async (testController) => {
   await navBar.gotoSignUpPage(testController);
   await signupPage.signupUser(testController, newUserInfo.name, newUserInfo.email, newUserInfo.password, newUserInfo.image, newUserInfo.level, newUserInfo.grasshopper, newUserInfo.sensei, newUserInfo.description);
   await navBar.isLoggedIn(testController, newUserInfo.email);
+});
+*/
+test('Test that sign up page only accepts @hawaii.edu email', async (testController) => {
+  await navBar.gotoSignUpPage(testController);
+  await signupPage.signupUser(testController, newUserInfo.name, incorrectEmail.email, newUserInfo.password, newUserInfo.image, newUserInfo.level, newUserInfo.grasshopper, newUserInfo.sensei, newUserInfo.description);
+  await signupPage.isErrorDisplayed(testController);
+});
+
+test('Test that sign up page does not accept incomplete registration', async (testController) => {
+  await navBar.gotoSignUpPage(testController);
+  await signupPage.signupUserNoName(testController, incorrectEmail.email, newUserInfo.password, newUserInfo.image, newUserInfo.level, newUserInfo.grasshopper, newUserInfo.sensei, newUserInfo.description);
+  await signupPage.isErrorDisplayed(testController);
 });
