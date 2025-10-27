@@ -25,7 +25,7 @@ import { Students } from '../../api/student/Student';
  * should be sanitized/validated to ensure that they aren't malicious inputs like XSS
  * 2. Password Complexity/Length: There should be rule enforced on how complex and long an
  * acceptable password should be when signing up
- **/
+ * */
 const SignUp = ({ location }) => {
   const [error, setError] = useState('');
   const [redirectToReferer, setRedirectToRef] = useState(false);
@@ -79,7 +79,7 @@ const SignUp = ({ location }) => {
    * 2. Rollback Insert: There are currently two sequential inserts. If one insert fails,
    * there could be data inconsistencies. If insert fails, rollback insert
    *
-   **/
+   * */
   const submit = (doc) => {
     const { name, email, image, level, grasshopper, sensei, password, description } = doc;
     // restricts possible sign up emails to only uh students
@@ -128,12 +128,13 @@ const SignUp = ({ location }) => {
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
             <Card>
               <Card.Body>
-                <TextField name="name" placeholder="Enter your first and last name" />
-                <TextField name="email" placeholder="Enter your .edu email" />
-                <TextField name="password" placeholder="Password" type="password" />
-                <TextField name="image" placeholder="Enter file of your head shot" />
-                <SelectField name="level" showInlineError />
+                <TextField id="user-name" name="name" placeholder="Enter your first and last name" />
+                <TextField id="user-email" name="email" placeholder="Enter your .edu email" />
+                <TextField id="user-password" name="password" placeholder="Password" type="password" />
+                <TextField id="user-image" name="image" placeholder="Enter file of your head shot" />
+                <SelectField id="user-level" name="level" showInlineError />
                 <SelectField
+                  id="grasshopper-courses"
                   name="grasshopper"
                   showInlineError
                   help="Select all classes you need help in"
@@ -142,6 +143,7 @@ const SignUp = ({ location }) => {
                   inline
                 />
                 <SelectField
+                  id="sensei-courses"
                   name="sensei"
                   showInlineError
                   help="Select all classes you need help in"
@@ -149,9 +151,9 @@ const SignUp = ({ location }) => {
                   checkboxes
                   inline
                 />
-                <LongTextField name="description" placeholder="Enter a description about you" />
+                <LongTextField id="user-description" name="description" placeholder="Enter a description about you" />
                 <ErrorsField />
-                <SubmitField disabled={isSubmitting} /> {/* Disable submit button when submitting. That way multiple copies aren't inserted into the database */}
+                <SubmitField id="new-user-submit" disabled={isSubmitting} /> {/* Disable submit button when submitting. That way multiple copies aren't inserted into the database */}
               </Card.Body>
             </Card>
           </AutoForm>
