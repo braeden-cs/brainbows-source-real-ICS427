@@ -98,6 +98,22 @@ class NavBar {
     }
     await testController.click('#notification-nav');
   }
+
+  async gotoAddGoalsPage(testController) {
+    const visible = await Selector('#basic-navbar-nav').visible;
+    if (!visible) {
+      await testController.click('button.navbar-toggler');
+    }
+    await testController.click('#add-goals');
+  }
+
+  async gotoViewGoalsPage(testController) {
+    const visible = await Selector('#basic-navbar-nav').visible;
+    if (!visible) {
+      await testController.click('button.navbar-toggler');
+    }
+    await testController.click('#goals');
+  }
 }
 
 export const navBar = new NavBar();

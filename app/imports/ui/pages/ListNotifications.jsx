@@ -18,7 +18,7 @@ function removeStudyNotif(id) {
 
 const MakeCard = ({ urgentNotif }) => (
   <Col className="p-3">
-    <Card className="h-100">
+    <Card id="urgent-notif" className="h-100">
       <Card.Header>
         <Card.Title>URGENT</Card.Title>
         <Card.Subtitle>A student is in the ICSpace and needs your help</Card.Subtitle>
@@ -38,6 +38,7 @@ const MakeCard = ({ urgentNotif }) => (
         </Card.Text>
         <Card.Footer className="d-grid fluid">
           <Button
+            id="delete-button"
             className="fluid"
             variant="outline-danger"
             size="lg"

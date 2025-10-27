@@ -22,13 +22,13 @@ const ViewGoals = () => {
       <h2 id="page-titles">View Goals</h2>
       <Row>{goals.map((goal) => (
         <div key={goal._id}>
-          <Card>
+          <Card id="goal">
             <Col>
               <h3>Short Term Goal: {goal.shortTermGoal}</h3>
               <h3>Long Term Goal: {goal.longTermGoal}</h3>
             </Col>
             <Col>
-              <Button variant="danger" onClick={() => Goals.collection.remove({ _id: goal._id })}>
+              <Button id="removeGoal" variant="danger" onClick={() => Goals.collection.remove({ _id: goal._id })}>
                 <Trash />
               </Button>
             </Col>

@@ -45,9 +45,9 @@ const AddGoal = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <LongTextField name="shortTermGoal" />
-                <LongTextField name="longTermGoal" />
-                <SubmitField />
+                <LongTextField id="shortGoal" name="shortTermGoal" />
+                <LongTextField id="longGoal" name="longTermGoal" />
+                <SubmitField id="submitGoal" />
                 <ErrorsField />
               </Card.Body>
             </Card>

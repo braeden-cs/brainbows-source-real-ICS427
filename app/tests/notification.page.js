@@ -5,6 +5,8 @@ class NotificationPage {
     this.pageId = '#notification-nav';
     this.pageSelector = Selector(this.pageId);
     this.notification = Selector('#study-notif');
+    this.urgentNotification = Selector('#urgent-notif');
+    this.deleteSelector = Selector('#delete-button');
   }
 
   /** Asserts that this page is currently displayed. */
@@ -21,6 +23,21 @@ class NotificationPage {
 
     await testController
       .expect(studyNotification.exists).ok();
+  }
+
+  async hasUrgentStudyNotification(testController, student, course, topic, startTime, endTime) {
+    const studyNotification = this.urgentNotification
+      .withText(`Student: ${student}`)
+      .withText(`Course: ${course}`)
+      .withText(`Topic: ${topic}`)
+      .withText(`Time: ${startTime} - ${endTime}`);
+
+    await testController
+      .expect(studyNotification.exists).ok();
+  }
+
+  async deleteNotification(testController) {
+    await testController.click(this.deleteSelector);
   }
 }
 

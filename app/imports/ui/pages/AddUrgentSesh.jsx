@@ -83,12 +83,12 @@ const AddUrgentSesh = () => {
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <TextField name="name" />
-                <SelectField name="course" />
-                <LongTextField name="topic" />
-                <SelectField name="startTime" />
-                <SelectField name="endTime" />
-                <SubmitField value="Submit" />
+                <TextField id="urgent-name" name="name" />
+                <SelectField id="urgent-course" name="course" />
+                <LongTextField id="urgent-topic" name="topic" />
+                <SelectField id="urgent-startTime" name="startTime" />
+                <SelectField id="urgent-endTime" name="endTime" />
+                <SubmitField id="urgent-submit" value="Submit" />
                 <ErrorsField />
               </Card.Body>
             </Card>
