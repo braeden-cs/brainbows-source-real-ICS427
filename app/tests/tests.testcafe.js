@@ -26,6 +26,7 @@ const goalInfo = { short: 'short term goal', long: 'long term goal' };
 const updateProfileInfo = { level: 'Sophomore' };
 const newUserInfo = { name: 'Ava Shane', email: 'ava.shane@hawaii.edu', password: 'changeme', image: 'https://github.com/philipmjohnson.png', level: 'Freshman', grasshopper: 'ICS 111', sensei: 'ICS 101', description: 'description' };
 const incorrectEmail = { email: 'ava@foo.com' };
+const maliciousInput = { sql: 'jean moe OR 1=1', script: '<script> alert("test")</script>' };
 
 fixture('meteor-application-template-react localhost test with default db')
   .page('http://localhost:3000');
@@ -203,4 +204,29 @@ test('Test that sign up page does not accept incomplete registration', async (te
   await navBar.gotoSignUpPage(testController);
   await signupPage.signupUserNoName(testController, incorrectEmail.email, newUserInfo.password, newUserInfo.image, newUserInfo.level, newUserInfo.grasshopper, newUserInfo.sensei, newUserInfo.description);
   await signupPage.isErrorDisplayed(testController);
+});
+
+test('Test malicious input for recruit', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoMatchPage(testController);
+  await matchPage.isDisplayed(testController);
+  await matchPage.gotoSpecificRecruit(testController, senseiCredentials.name);
+  await recruitPage.isDisplayed(testController);
+  await recruitPage.fillRecruitForm(testController, recruitInfo.course, maliciousInput.script, recruitInfo.startTime, recruitInfo.endTime);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, senseiCredentials.username, senseiCredentials.password);
+  await navBar.gotoNotificationPage(testController);
+  await notifPage.isDisplayed(testController);
+  await notifPage.hasScripts(testController, credentials.username, recruitInfo.course, maliciousInput.script, recruitInfo.startTime, recruitInfo.endTime);
+});
+
+test('Test malicious input when editing', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoEditProfilePage(testController);
+  await editProfilePage.isDisplayed(testController);
+  await editProfilePage.hasMaliciousInput(testController, maliciousInput.sql);
 });

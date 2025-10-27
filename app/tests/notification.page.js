@@ -39,6 +39,18 @@ class NotificationPage {
   async deleteNotification(testController) {
     await testController.click(this.deleteSelector);
   }
+
+  async hasScripts(testController, student, course, topic, startTime, endTime) {
+    const studyNotification = this.Notification
+      .withText(`Student: ${student}`)
+      .withText(`Course: ${course}`)
+      .withText(`Topic: ${topic}`)
+      .withText(`Time: ${startTime} - ${endTime}`);
+
+    const html = await studyNotification.innerHTML;
+
+    await testController.expect(html).notContains('<script>');
+  }
 }
 
 export const notifPage = new NotificationPage();

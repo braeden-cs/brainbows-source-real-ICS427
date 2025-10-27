@@ -5,6 +5,8 @@ class EditProfilePage {
     this.pageId = '#edit-user-home';
     this.pageSelector = Selector(this.pageId);
     this.levelSelector = Selector('#user-level');
+    this.nameSelector = Selector('#user-name');
+    this.cardSelector = Selector('#edit-profile');
     this.submitUpdateSelector = Selector('#submit-update input.btn.btn-primary');
   }
 
@@ -24,6 +26,20 @@ class EditProfilePage {
 
     const currentLevel = this.levelSelector.value;
     await testController.expect(currentLevel).eql(updatedLevel);
+  }
+
+  async hasMaliciousInput(testController, updatedName) {
+    const alertButton = Selector('.swal-button--confirm').withText('OK');
+
+    await testController
+      .typeText(this.nameSelector, updatedName)
+      .click(this.submitUpdateSelector)
+      .click(alertButton());
+
+    const profile = Selector(this.cardSelector).withText(updatedName);
+    const text = await profile.innerText;
+
+    await testController.expect(text).contains(updatedName);
   }
 }
 
