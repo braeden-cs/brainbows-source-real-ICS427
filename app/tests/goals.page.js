@@ -25,6 +25,15 @@ class GoalsPage {
   async deleteGoal(testController) {
     await testController.click(this.deleteGoalSelector);
   }
+
+  async testMaliciousGoal(testController, shortGoal, longGoal) {
+    const goalNotification = this.goalSelector
+      .withText(`Short Term Goal: ${shortGoal}`)
+      .withText(`Long Term Goal: ${longGoal}`);
+
+    await testController
+      .expect(goalNotification.exists).notOk('Goal should not be created');
+  }
 }
 
 export const goalsPage = new GoalsPage();

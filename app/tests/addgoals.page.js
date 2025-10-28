@@ -23,6 +23,13 @@ class AddGoalsPage {
       .click(this.submitGoalSelector)
       .click(alertButton());
   }
+
+  async hasGoalError(testController) {
+    const goalError = Selector('#goal-error');
+
+    await testController.click(this.submitGoalSelector);
+    await testController.expect(goalError.exists).ok();
+  }
 }
 
 export const addGoalsPage = new AddGoalsPage();

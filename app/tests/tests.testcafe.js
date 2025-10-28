@@ -247,3 +247,20 @@ test('Test error of leaving field blank in creating study session', async (testC
   await matchPage.gotoRecruitPage(testController);
   await recruitPage.isErrorDisplayed(testController);
 });
+
+test('Test error of leaving field blank in creating goal', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoAddGoalsPage(testController);
+  await addGoalsPage.hasGoalError(testController);
+});
+
+test('Test malicious input for creating goals', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoAddGoalsPage(testController);
+  await addGoalsPage.createGoal(testController, maliciousInput.script, maliciousInput.sql);
+  await navBar.gotoUserHomePage(testController);
+  await navBar.gotoViewGoalsPage(testController);
+  await goalsPage.testMaliciousGoal(testController, maliciousInput.script, maliciousInput.sql);
+});

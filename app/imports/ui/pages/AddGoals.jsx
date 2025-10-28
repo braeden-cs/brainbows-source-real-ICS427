@@ -48,7 +48,7 @@ const AddGoal = () => {
                 <LongTextField id="shortGoal" name="shortTermGoal" />
                 <LongTextField id="longGoal" name="longTermGoal" />
                 <SubmitField id="submitGoal" />
-                <ErrorsField />
+                <ErrorsField id="goal-error" />
               </Card.Body>
             </Card>
           </AutoForm>
