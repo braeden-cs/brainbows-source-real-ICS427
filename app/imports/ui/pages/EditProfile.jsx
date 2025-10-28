@@ -81,7 +81,7 @@ const EditProfile = () => {
                   inline
                 />
                 <SubmitField id="submit-update" value="Submit" />
-                <ErrorsField />
+                <ErrorsField id="edit-error"/>
               </Card>
             </CardGroup>
           </AutoForm>

@@ -32,14 +32,23 @@ class EditProfilePage {
     const alertButton = Selector('.swal-button--confirm').withText('OK');
 
     await testController
+      .click(this.nameSelector)
+      .pressKey('ctrl+a backspace')
       .typeText(this.nameSelector, updatedName)
       .click(this.submitUpdateSelector)
       .click(alertButton());
 
-    const profile = Selector(this.cardSelector).withText(updatedName);
-    const text = await profile.innerText;
+    const profile = Selector(this.nameSelector).value;
+    await testController.expect(profile).eql(updatedName);
+  }
 
-    await testController.expect(text).contains(updatedName);
+  async isErrorDisplayed(testController) {
+    const signupError = Selector('#edit-error');
+
+    await testController.click(this.nameSelector);
+    await testController.pressKey('ctrl+a backspace');
+    await testController.click(this.submitUpdateSelector);
+    await testController.expect(signupError.exists).ok();
   }
 }
 

@@ -41,15 +41,14 @@ class NotificationPage {
   }
 
   async hasScripts(testController, student, course, topic, startTime, endTime) {
-    const studyNotification = this.Notification
+    const studyNotification = this.notification
       .withText(`Student: ${student}`)
       .withText(`Course: ${course}`)
       .withText(`Topic: ${topic}`)
       .withText(`Time: ${startTime} - ${endTime}`);
 
-    const html = await studyNotification.innerHTML;
-
-    await testController.expect(html).notContains('<script>');
+    await testController
+      .expect(studyNotification.exists).notOk('the creation of the notification should not happen');
   }
 }
 

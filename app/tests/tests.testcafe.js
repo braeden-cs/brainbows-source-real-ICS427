@@ -187,6 +187,8 @@ test('Test that the edit page works', async (testController) => {
   await editProfilePage.isDisplayed(testController);
   await editProfilePage.isUpdated(testController, updateProfileInfo.level);
 });
+
+/** Commented this test out as it will only work once. Once account is created it will throw an error */
 /**
 test('Test that signup works', async (testController) => {
   await navBar.gotoSignUpPage(testController);
@@ -229,4 +231,11 @@ test('Test malicious input when editing', async (testController) => {
   await navBar.gotoEditProfilePage(testController);
   await editProfilePage.isDisplayed(testController);
   await editProfilePage.hasMaliciousInput(testController, maliciousInput.sql);
+});
+
+test('Test error of leaving field blank in edit profile', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoEditProfilePage(testController);
+  await editProfilePage.isErrorDisplayed(testController);
 });
