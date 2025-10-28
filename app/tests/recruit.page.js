@@ -30,6 +30,13 @@ class RecruitPage {
       .click(this.submitSelector)
       .click(alertButton());
   }
+
+  async isErrorDisplayed(testController) {
+    const seshError = Selector('#sesh-error');
+
+    await testController.click(this.submitSelector);
+    await testController.expect(seshError.exists).ok();
+  }
 }
 
 export const recruitPage = new RecruitPage();

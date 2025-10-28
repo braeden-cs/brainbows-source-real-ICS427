@@ -239,3 +239,11 @@ test('Test error of leaving field blank in edit profile', async (testController)
   await navBar.gotoEditProfilePage(testController);
   await editProfilePage.isErrorDisplayed(testController);
 });
+
+test('Test error of leaving field blank in creating study session', async (testController) => {
+  await navBar.gotoSignInPage(testController);
+  await signinPage.signin(testController, credentials.username, credentials.password);
+  await navBar.gotoMatchPage(testController);
+  await matchPage.gotoRecruitPage(testController);
+  await recruitPage.isErrorDisplayed(testController);
+});

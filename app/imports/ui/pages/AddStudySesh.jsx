@@ -91,7 +91,7 @@ const AddStudySesh = () => {
                 <SelectField id="start-time" name="startTime" />
                 <SelectField id="end-time" name="endTime" />
                 <SubmitField id="submit-recruit" value="Submit" />
-                <ErrorsField />
+                <ErrorsField id="sesh-error" />
               </Card.Body>
             </Card>
           </AutoForm>
